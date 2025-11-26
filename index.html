@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2143013253712717"
      crossorigin="anonymous"></script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMZEPQ2TB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-EHMZEPQ2TB');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMZEPQ2TB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EHMZEPQ2TB');
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <title>PCI COMMITTEE</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8vF4G9MiYO8xmmzHQibSEGMpfcunFFDRPdNDAS0qpZ4HmBhpCmoNcK1Y63V1pnHrZAaAua018VNWSxQc4iY9490PKL0EgJDCaUaDFO8lNozW4y4THv7M9FwRfmdu3ltIUl_qzdR7xJD5LFrJ4uwNu9qKLINZ1hip26spnDCklTsYRKjV_3SYXD3h88e9l/s224/logo-mayapada-hospital-group-909x909-2022-removebg-preview.png">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8vF4G9MiYO8xmmzHQibSEGMpfcunFFDRPdNDAS0qpZ4HmBhpCmoNcK1Y63V1pnHrZAaAua018VNWSxQc4iY9490PKL0EgJDCaUaDFO8lNozW4y4THv7M9FwRfmdu3ltIUl_qzdR7xJD5LFrJ4uwNu9qKLINZ1hip26spnDCklTsYRKjV_3SYXD3h88e9l/s224/logo-mayapada-hospital-group-909x909-2022-removebg-preview.png">
 
-  <!-- Link ke manifest.json -->
+  <!-- manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000" id="meta-theme-color">
 
   <style>
     :root {
-      --bg-light: #ffffff;
-      --text-light: #111;
       --bg-dark: #000000;
       --text-dark: #eee;
       --accent: #00a859;
-      --toggle-size: 56px;
-      --toggle-padding: 12px;
     }
 
     html, body {
@@ -40,7 +39,7 @@
       height: 100%;
       background-color: var(--bg-dark);
       color: var(--text-dark);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: system-ui, Arial, sans-serif;
     }
 
     body {
@@ -49,16 +48,13 @@
       min-height: 100vh;
     }
 
-    /* Container iframe */
     .app-frame {
       flex: 1 1 auto;
-      display: block;
       width: 100%;
       height: calc(100vh - 0px);
       border: none;
     }
 
-    /* Install button */
     #installButton {
       position: fixed;
       left: 16px;
@@ -75,44 +71,109 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     }
 
+    /* LACI IKLAN */
+    #adsDrawer {
+      position: fixed;
+      top: 60%;
+      left: -260px;
+      width: 250px;
+      height: 200px;
+      background: white;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 3px 3px 12px rgba(0,0,0,0.25);
+      z-index: 1500;
+      padding: 10px;
+      transition: left 0.35s ease-in-out;
+    }
+
+    #adsTab {
+      position: absolute;
+      top: 70px;
+      right: -40px;
+      width: 40px;
+      height: 80px;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-size: 14px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-weight: bold;
+      user-select: none;
+    }
   </style>
 </head>
-<body>
-  <!-- Iframe utama -->
-  <iframe id="appIframe" class="app-frame" src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b?refresh=1" allowfullscreen allow="geolocation"></iframe>
 
-  <!-- Install button (muncul jika beforeinstallprompt tersedia) -->
+<body>
+
+  <!-- =======================
+       IFRAME UTAMA
+  ======================== -->
+  <iframe id="appIframe" class="app-frame"
+    src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b?refresh=1"
+    allowfullscreen allow="geolocation"></iframe>
+
+  <!-- =======================
+       LACI IKLAN ADSENSE
+  ======================== -->
+  <div id="adsDrawer">
+    <div id="adsTab">IKLAN</div>
+
+    <!-- Kotak Iklan Adsense -->
+    <ins class="adsbygoogle"
+        style="display:block;width:100%;height:180px"
+        data-ad-client="ca-pub-2143013253712717"
+        data-ad-slot="#"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <!-- TOMBOL INSTALL -->
   <button id="installButton">Install Apps (safe)</button>
 
-
   <script>
-  // --- Install prompt handling ---
-  let deferredPrompt;
-  const installButton = document.getElementById('installButton');
+    /* --- Drawer Logic --- */
+    const drawer = document.getElementById('adsDrawer');
+    const tab = document.getElementById('adsTab');
+    let drawerOpen = false;
 
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installButton.style.display = 'inline-block';
-  });
+    tab.onclick = () => {
+      drawerOpen = !drawerOpen;
+      drawer.style.left = drawerOpen ? "0px" : "-260px";
+    };
 
-  installButton.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
-    installButton.style.display = 'none';
-    deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-  });
+    /* --- Install prompt handling --- */
+    let deferredPrompt;
+    const installButton = document.getElementById('installButton');
 
-
-  // --- Service worker registration ---
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('ServiceWorker registered', reg.scope))
-        .catch(err => console.warn('ServiceWorker failed', err));
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installButton.style.display = 'inline-block';
     });
-  }
+
+    installButton.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      installButton.style.display = 'none';
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+
+    /* --- Service worker --- */
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('ServiceWorker registered', reg.scope))
+          .catch(err => console.warn('ServiceWorker failed', err));
+      });
+    }
   </script>
+
 </body>
 </html>
