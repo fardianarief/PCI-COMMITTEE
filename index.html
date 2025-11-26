@@ -1,179 +1,263 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <!-- Google AdSense -->
+  <!-- AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2143013253712717"
      crossorigin="anonymous"></script>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMZEPQ2TB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EHMZEPQ2TB');
+    gtag("js", new Date());
+    gtag("config", "G-EHMZEPQ2TB");
   </script>
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-  <title>PCI COMMITTEE</title>
+  <title>KPPI MHJS</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32"
-    href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8vF4G9MiYO8xmmzHQibSEGMpfcunFFDRPdNDAS0qpZ4HmBhpCmoNcK1Y63V1pnHrZAaAua018VNWSxQc4iY9490PKL0EgJDCaUaDFO8lNozW4y4THv7M9FwRfmdu3ltIUl_qzdR7xJD5LFrJ4uwNu9qKLINZ1hip26spnDCklTsYRKjV_3SYXD3h88e9l/s224/logo-mayapada-hospital-group-909x909-2022-removebg-preview.png">
-
-  <!-- manifest -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000" id="meta-theme-color">
+  <meta name="theme-color" content="#000000">
 
   <style>
     :root {
-      --bg-dark: #000000;
-      --text-dark: #eee;
       --accent: #00a859;
+      --drawer-width: 280px;
     }
 
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      font-family: system-ui, Arial, sans-serif;
+      background: black;
+      color: #eee;
+      font-family: system-ui, sans-serif;
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
+    /* Iframe App */
     .app-frame {
-      flex: 1 1 auto;
       width: 100%;
-      height: calc(100vh - 0px);
+      height: 100vh;
       border: none;
     }
 
+    /* Install Button */
     #installButton {
       position: fixed;
       left: 16px;
       bottom: 20px;
-      background-color: var(--accent);
-      color: #fff;
+      background: var(--accent);
+      color: white;
       border: none;
       border-radius: 10px;
       padding: 10px 14px;
-      font-size: 14px;
-      cursor: pointer;
       display: none;
-      z-index: 1200;
+      font-size: 14px;
+      z-index: 1000;
       box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     }
 
-    /* LACI IKLAN */
-    #adsDrawer {
+    /* Drawer (Laci) */
+    #drawer {
       position: fixed;
-      top: 40%;
-      left: -260px;
-      width: 250px;
-      height: 200px;
-      background: white;
-      border-radius: 0 10px 10px 0;
-      box-shadow: 3px 3px 12px rgba(0,0,0,0.25);
+      top: 30%;
+      left: 0;
+      width: var(--drawer-width);
+      height: 60%;
+      background: #111;
+      transform: translateX(-100%);
+      transition: 0.3s ease;
       z-index: 1500;
-      padding: 10px;
-      transition: left 0.35s ease-in-out;
+      padding: 18px;
+      border-right: 2px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      overflow-y: auto;
     }
 
-    #adsTab {
-      position: absolute;
-      top: 50px;
-      right: -40px;
-      width: 40px;
-      height: 80px;
+    #drawer.open {
+      transform: translateX(0);
+    }
+
+    #drawerToggle {
+      position: fixed;
+      top: 35%;
+      left: 0;
+      transform: translateX(-10px);
+      padding: 10px 14px;
       background: var(--accent);
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 10px 10px 0;
       cursor: pointer;
+      z-index: 1600;
+      border: none;
+    }
+
+    /* Menu Halaman */
+    .drawer-links {
+      margin-top: 14px;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+    }
+    .drawer-links a {
+      display: block;
+      color: #00e676;
+      margin: 8px 0;
+      text-decoration: none;
       font-size: 14px;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      font-weight: bold;
-      user-select: none;
+    }
+    .drawer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Pages */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 3000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .modal-content {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #00a859;
+      max-width: 700px;
+      margin: auto;
+      color: #eee;
+    }
+    .modal h2 {
+      color: var(--accent);
+    }
+    .close-btn {
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- =======================
-       IFRAME UTAMA
-  ======================== -->
-  <iframe id="appIframe" class="app-frame"
-    src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b?refresh=1"
-    allowfullscreen allow="geolocation"></iframe>
+<!-- IFRAME APLIKASI -->
+<iframe id="appIframe" class="app-frame"
+  src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b?refresh=1"
+  allowfullscreen allow="geolocation">
+</iframe>
 
-  <!-- =======================
-       LACI IKLAN ADSENSE
-  ======================== -->
-  <div id="adsDrawer">
-    <div id="adsTab">ads</div>
+<!-- Install Button -->
+<button id="installButton">Install Apps (safe)</button>
 
-    <!-- Kotak Iklan Adsense -->
-    <ins class="adsbygoogle"
-        style="display:block;width:100%;height:180px"
-        data-ad-client="ca-pub-2143013253712717"
-        data-ad-slot="4329837256"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
+<!-- Drawer Toggle -->
+<button id="drawerToggle">≡</button>
 
-  <!-- TOMBOL INSTALL -->
-  <button id="installButton">Install Apps (safe)</button>
+<!-- Drawer -->
+<div id="drawer">
 
+  <!-- Iklan -->
+  <ins class="adsbygoogle"
+       style="display:block; height:120px;"
+       data-ad-client="ca-pub-2143013253712717"
+       data-ad-slot="4329837256"></ins>
   <script>
-    /* --- Drawer Logic --- */
-    const drawer = document.getElementById('adsDrawer');
-    const tab = document.getElementById('adsTab');
-    let drawerOpen = false;
-
-    tab.onclick = () => {
-      drawerOpen = !drawerOpen;
-      drawer.style.left = drawerOpen ? "0px" : "-260px";
-    };
-
-    /* --- Install prompt handling --- */
-    let deferredPrompt;
-    const installButton = document.getElementById('installButton');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installButton.style.display = 'inline-block';
-    });
-
-    installButton.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      installButton.style.display = 'none';
-      deferredPrompt.prompt();
-      const choice = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    });
-
-    /* --- Service worker --- */
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => console.log('ServiceWorker registered', reg.scope))
-          .catch(err => console.warn('ServiceWorker failed', err));
-      });
-    }
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+
+  <!-- Menu Halaman -->
+  <div class="drawer-links">
+    <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>
+    <a href="#" onclick="openModal('aboutModal')">About</a>
+    <a href="#" onclick="openModal('contactModal')">Contact</a>
+  </div>
+</div>
+
+
+<!-- ========== MODAL: PRIVACY POLICY ========== -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <h2>Privacy Policy</h2>
+    <p>
+      Website ini dikelola oleh <strong>KPPI MHJS</strong>. Kami berkomitmen untuk menjaga privasi
+      dan keamanan data pengguna. Informasi apa pun yang Anda berikan melalui aplikasi atau
+      website ini tidak akan dibagikan kepada pihak ketiga tanpa izin.
+    </p>
+    <p>
+      Kami menggunakan layanan pihak ketiga seperti Google AdSense untuk menampilkan iklan.
+      Layanan tersebut dapat menggunakan cookies untuk menampilkan iklan yang relevan.
+    </p>
+    <button class="close-btn" onclick="closeModal('privacyModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ========== MODAL: ABOUT ========== -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <h2>Tentang KPPI MHJS</h2>
+    <p>
+      KPPI MHJS adalah platform internal berbasis AppSheet yang digunakan untuk kebutuhan
+      operasional terkait PCI Committee. Website ini hanya berfungsi sebagai launcher untuk
+      aplikasi internal dan sebagai sarana tampilan PWA.
+    </p>
+    <button class="close-btn" onclick="closeModal('aboutModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ========== MODAL: CONTACT ========== -->
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <h2>Kontak</h2>
+    <p>
+      Untuk pertanyaan atau bantuan, silakan hubungi:
+      <br><br>
+      <strong>Email:</strong> fardhiansyah.arief@gmail.com
+    </p>
+    <button class="close-btn" onclick="closeModal('contactModal')">Tutup</button>
+  </div>
+</div>
+
+<script>
+/* Drawer Toggle */
+const drawer = document.getElementById("drawer");
+document.getElementById("drawerToggle").onclick = () => {
+  drawer.classList.toggle("open");
+};
+
+/* Modal Functions */
+function openModal(id) {
+  document.getElementById(id).style.display = "block";
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+/* Install prompt */
+let deferredPrompt;
+const installButton = document.getElementById("installButton");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installButton.style.display = "inline-block";
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt = null;
+});
+
+/* Service Worker */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
 
 </body>
 </html>
