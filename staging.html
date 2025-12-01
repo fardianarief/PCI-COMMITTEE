@@ -1,213 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <!-- Google tag -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMZEPQ2TB"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-EHMZEPQ2TB");
-  </script>
-
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-  <meta name="1775a73668a12336d408cf87550e25bbbfa29da3" content="1775a73668a12336d408cf87550e25bbbfa29da3" />
-  <title>KPPI MHJS</title>
-
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="/icon.png"> <!-- FIX favicon 404 -->
-  <meta name="theme-color" content="#000000">
-
+  <title>Staging Apps (dev)</title>
   <style>
-    :root { --accent: #00a859; --drawer-width: 280px; }
-
     html, body {
-      margin: 0; padding: 0; height: 100%;
-      background: black; color: #eee;
-      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #000;
     }
-
-    .app-frame { width: 100%; height: 100vh; border: none; }
-
-    #installButton {
-      position: fixed; left: 16px; bottom: 20px;
-      background: var(--accent); color: white;
-      border: none; border-radius: 10px;
-      padding: 10px 14px; display: none;
-      font-size: 14px; z-index: 1000;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+    body {
+      display: flex;
+      flex-direction: column;
     }
-
-    #drawer {
-      position: fixed; top: 30%; left: 0;
-      width: var(--drawer-width); height: 60%;
-      background: #111; transform: translateX(-100%);
-      transition: .3s ease; z-index: 1500;
-      padding: 18px; border-right: 2px solid var(--accent);
-      border-radius: 0 10px 10px 0; overflow-y: auto;
-    }
-
-    #drawer.open { transform: translateX(0); }
-
-    #drawerToggle {
-      position: fixed; top: 35%; left: 0;
-      transform: translateX(-10px);
-      padding: 10px 14px; background: var(--accent);
-      color: white; border-radius: 0 10px 10px 0;
-      cursor: pointer; z-index: 1600; border: none;
-    }
-
-    .drawer-links {
-      margin-top: 14px; border-top: 1px solid #444; padding-top: 10px;
-    }
-    .drawer-links a {
-      display: block; color: #00e676; margin: 8px 0;
-      text-decoration: none; font-size: 14px;
-    }
-    .drawer-links a:hover { text-decoration: underline; }
-
-    .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85); z-index: 3000;
-      padding: 20px; overflow-y: auto;
-    }
-    .modal-content {
-      background: #111; padding: 20px; border-radius: 10px;
-      border: 1px solid var(--accent); max-width: 700px;
-      margin: auto; color: #eee;
-    }
-    .modal h2 { color: var(--accent); }
-
-    .close-btn {
-      background: var(--accent); border: none; color: white;
-      padding: 8px 14px; border-radius: 8px; margin-top: 15px;
-      cursor: pointer;
+    iframe {
+      flex: 1;
+      border: none;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-
-<!-- IFRAME APP -->
-<iframe id="appIframe" class="app-frame"
-  src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
-  allowfullscreen allow="geolocation">
-</iframe>
-
-<!-- Install Button -->
-<button id="installButton">Install Apps (safe)</button>
-
-<!-- Drawer Toggle -->
-<button id="drawerToggle">≡</button>
-
-<!-- Drawer -->
-<div id="drawer">
-  <div id="adsContainer"></div>
-
-  <div class="drawer-links">
-    <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>
-    <a href="#" onclick="openModal('aboutModal')">About</a>
-    <a href="#" onclick="openModal('contactModal')">Contact</a>
-  </div>
-</div>
-
-<!-- PRIVACY MODAL -->
-<div id="privacyModal" class="modal">
-  <div class="modal-content">
-    <h2>Privacy Policy</h2>
-    <p>
-      Website ini dikelola oleh <strong>KPPI MHJS</strong>. Kami berkomitmen menjaga
-      privasi dan keamanan data pengguna.
-    </p>
-    <button class="close-btn" onclick="closeModal('privacyModal')">Tutup</button>
-  </div>
-</div>
-
-<!-- ABOUT MODAL -->
-<div id="aboutModal" class="modal">
-  <div class="modal-content">
-    <h2>Tentang KPPI MHJS</h2>
-    <p>Platform internal untuk operasional PCI Committee berbasis AppSheet.</p>
-    <button class="close-btn" onclick="closeModal('aboutModal')">Tutup</button>
-  </div>
-</div>
-
-<!-- CONTACT MODAL -->
-<div id="contactModal" class="modal">
-  <div class="modal-content">
-    <h2>Kontak</h2>
-    <p>Email: <strong>fardhiansyah.arief@gmail.com</strong></p>
-    <button class="close-btn" onclick="closeModal('contactModal')">Tutup</button>
-  </div>
-</div>
-
-<script>
-/* Drawer Toggle */
-const drawer = document.getElementById("drawer");
-const adsContainer = document.getElementById("adsContainer");
-let adsLoaded = false;
-
-document.getElementById("drawerToggle").onclick = () => {
-  drawer.classList.toggle("open");
-  if (drawer.classList.contains("open") && !adsLoaded) {
-      loadDrawerAds();
-      adsLoaded = true;
-  }
-};
-
-/* Load Ads ONLY when Drawer Opened */
-function loadDrawerAds() {
-    adsContainer.innerHTML = "";
-
-    let script1 = document.createElement("script");
-    script1.src = "https://quge5.com/88/tag.min.js";
-    script1.dataset.zone = "189408";
-    script1.async = true;
-
-    let setup = document.createElement("script");
-    setup.innerHTML = `
-      atOptions = {
-        'key' : 'fcfd7f916c5cf803e601e9e840c32c0e',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    `;
-
-    let script2 = document.createElement("script");
-    script2.src = "//www.highperformanceformat.com/fcfd7f916c5cf803e601e9e840c32c0e/invoke.js";
-    script2.async = true;
-
-    adsContainer.appendChild(script1);
-    adsContainer.appendChild(setup);
-    adsContainer.appendChild(script2);
-}
-
-/* Modal */
-function openModal(id){ document.getElementById(id).style.display="block"; }
-function closeModal(id){ document.getElementById(id).style.display="none"; }
-
-/* Install PWA */
-let deferredPrompt;
-const installButton = document.getElementById("installButton");
-window.addEventListener("beforeinstallprompt",(e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  installButton.style.display="inline-block";
-});
-
-installButton.addEventListener("click", async ()=>{
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt=null;
-});
-
-/* SW */
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
-
+  <iframe 
+    src="https://www.appsheet.com/start/ab09d856-56cf-49d0-99ef-d4834c936459"
+    allowfullscreen
+    allow="geolocation">
+  </iframe>
 </body>
 </html>
