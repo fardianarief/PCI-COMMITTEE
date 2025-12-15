@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <title>Audit Tools PCI</title>
+
   <style>
     html, body {
       margin: 0;
@@ -11,22 +12,58 @@
       height: 100%;
       background-color: #000;
     }
+
     body {
       display: flex;
       flex-direction: column;
     }
+
     iframe {
       flex: 1;
       border: none;
       width: 100%;
     }
+
+    /* Floating Home Button (Left Bottom) */
+    .floating-home {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: #1976d2;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      z-index: 9999;
+    }
+
+    .floating-home:hover {
+      background-color: #125aa3;
+    }
   </style>
 </head>
+
 <body>
+
   <iframe 
     src="https://www.appsheet.com/start/3d0602af-7563-43c6-96c9-e558c7ff1c22"
     allowfullscreen
     allow="geolocation">
   </iframe>
+
+  <!-- Floating Home Button -->
+  <a 
+    href="https://kppi-mhjs.site/"
+    class="floating-home"
+    title="Kembali ke Aplikasi Utama">
+    ⌂
+  </a>
+
 </body>
 </html>
