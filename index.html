@@ -34,14 +34,12 @@
       font-family: system-ui, sans-serif;
     }
 
-    /* App iframe */
     .app-frame {
       width: 100%;
       height: 100vh;
       border: none;
     }
 
-    /* Install button */
     #installButton {
       position: fixed;
       left: 16px;
@@ -56,7 +54,6 @@
       font-size: 14px;
     }
 
-    /* Drawer */
     #drawer {
       position: fixed;
       top: 30%;
@@ -70,7 +67,7 @@
       overflow-y: auto;
       z-index: 1500;
 
-      /* 👇 PEEK MODE */
+      /* 👇 MINI-PEEK (IKLAN MASUK VIEWPORT) */
       transform: translateX(calc(-100% + var(--peek-size)));
       transition: transform 0.3s ease;
     }
@@ -111,30 +108,35 @@
 <body>
 
 <!-- IFRAME APLIKASI -->
-<iframe class="app-frame"
+<iframe
+  class="app-frame"
   src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
-  allowfullscreen allow="geolocation">
+  allowfullscreen
+  allow="geolocation">
 </iframe>
 
 <!-- INSTALL BUTTON -->
 <button id="installButton">Install Apps</button>
 
-<!-- TOGGLE -->
+<!-- DRAWER TOGGLE -->
 <button id="drawerToggle">≡</button>
 
 <!-- DRAWER -->
 <div id="drawer">
 
-  <!-- SLOT IKLAN (VISIBLE VIA PEEK) -->
+  <!-- SLOT IKLAN (AUTO LOAD, DIANGGAP TAMPIL) -->
   <div id="drawerAd" style="min-height:120px; margin-bottom:16px;">
     <script>
-      (function(){
-        var s = document.createElement("script");
-        s.src = "//wirytrip.com/bwXzVDs.d/GJlL0VYcWQcI/teumT9hu/ZaUal/k/PSTuYa3CM_T-QwyNMEzDEIt/N/jMcXxZNKDEIyzTM/gY";
+      (function(kqgsd){
+        var d = document,
+            s = d.createElement('script'),
+            l = d.scripts[d.scripts.length - 1];
+        s.settings = kqgsd || {};
+        s.src = "//wirytrip.com/bwX.VJsOdQGilk0tYZWycE/Beim-9puhZyUGl/ksPbTVYI3rMkTtQ/yaMIzYE/t/NIjAclxvNWDAI/zkM/gU";
         s.async = true;
-        s.referrerPolicy = "no-referrer-when-downgrade";
-        document.currentScript.parentNode.appendChild(s);
-      })();
+        s.referrerPolicy = 'no-referrer-when-downgrade';
+        l.parentNode.insertBefore(s, l);
+      })({})
     </script>
   </div>
 
