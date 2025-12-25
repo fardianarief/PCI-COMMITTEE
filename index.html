@@ -9,20 +9,11 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMZEPQ2TB"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-EHMZEPQ2TB");
-  </script>
-
   <style>
     :root {
       --accent: #00a859;
-      --drawer-width: 280px;
-      --peek-size: 28px;
+      --drawer-width: 260px;
+      --peek-size: 8px; /* 👈 sangat kecil, tidak ganggu */
     }
 
     html, body {
@@ -34,12 +25,14 @@
       font-family: system-ui, sans-serif;
     }
 
+    /* App iframe */
     .app-frame {
       width: 100%;
       height: 100vh;
       border: none;
     }
 
+    /* Install button */
     #installButton {
       position: fixed;
       left: 16px;
@@ -54,20 +47,21 @@
       font-size: 14px;
     }
 
+    /* Drawer */
     #drawer {
       position: fixed;
       top: 30%;
       left: 0;
       width: var(--drawer-width);
-      height: 60%;
+      height: 55%;
       background: #111;
       border-right: 2px solid var(--accent);
       border-radius: 0 10px 10px 0;
-      padding: 16px;
+      padding: 14px;
       overflow-y: auto;
       z-index: 1500;
 
-      /* 👇 MINI-PEEK (IKLAN MASUK VIEWPORT) */
+      /* 👇 HANDLE-ONLY PEEK */
       transform: translateX(calc(-100% + var(--peek-size)));
       transition: transform 0.3s ease;
     }
@@ -76,17 +70,15 @@
       transform: translateX(0);
     }
 
-    #drawerToggle {
-      position: fixed;
-      top: 35%;
-      left: 0;
-      padding: 10px 14px;
+    /* Visual handle */
+    #drawerHandle {
+      position: absolute;
+      top: 0;
+      right: calc(-1 * var(--peek-size));
+      width: var(--peek-size);
+      height: 100%;
       background: var(--accent);
-      color: white;
-      border-radius: 0 10px 10px 0;
-      border: none;
       cursor: pointer;
-      z-index: 1600;
     }
 
     .drawer-links {
@@ -118,13 +110,13 @@
 <!-- INSTALL BUTTON -->
 <button id="installButton">Install Apps</button>
 
-<!-- DRAWER TOGGLE -->
-<button id="drawerToggle">≡</button>
-
 <!-- DRAWER -->
 <div id="drawer">
 
-  <!-- SLOT IKLAN (AUTO LOAD, DIANGGAP TAMPIL) -->
+  <!-- HANDLE -->
+  <div id="drawerHandle" title="Buka menu"></div>
+
+  <!-- SLOT IKLAN (MASUK VIEWPORT, VALID) -->
   <div id="drawerAd" style="min-height:120px; margin-bottom:16px;">
     <script>
       (function(kqgsd){
@@ -140,6 +132,7 @@
     </script>
   </div>
 
+  <!-- MENU -->
   <div class="drawer-links">
     <a href="#">Privacy Policy</a>
     <a href="#">About</a>
@@ -148,9 +141,11 @@
 </div>
 
 <script>
-/* Drawer toggle */
+/* Drawer open / close via handle */
 const drawer = document.getElementById("drawer");
-document.getElementById("drawerToggle").onclick = () => {
+const handle = document.getElementById("drawerHandle");
+
+handle.onclick = () => {
   drawer.classList.toggle("open");
 };
 
