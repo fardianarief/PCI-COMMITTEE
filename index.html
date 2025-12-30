@@ -1,167 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-
   <title>KPPI MHJS</title>
-
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000">
-
   <style>
-    :root {
-      --accent: #00a859;
-      --drawer-width: 260px;
-      --peek-size: 8px; /* 👈 sangat kecil, tidak ganggu */
-    }
-
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: black;
-      color: #eee;
-      font-family: system-ui, sans-serif;
+      background-color: #000;
     }
-
-    /* App iframe */
-    .app-frame {
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    iframe {
+      flex: 1;
+      border: none;
       width: 100%;
-      height: 100vh;
-      border: none;
-    }
-
-    /* Install button */
-    #installButton {
-      position: fixed;
-      left: 16px;
-      bottom: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      display: none;
-      z-index: 2000;
-      font-size: 14px;
-    }
-
-    /* Drawer */
-    #drawer {
-      position: fixed;
-      top: 30%;
-      left: 0;
-      width: var(--drawer-width);
-      height: 55%;
-      background: #111;
-      border-right: 2px solid var(--accent);
-      border-radius: 0 10px 10px 0;
-      padding: 14px;
-      overflow-y: auto;
-      z-index: 1500;
-
-      /* 👇 HANDLE-ONLY PEEK */
-      transform: translateX(calc(-100% + var(--peek-size)));
-      transition: transform 0.3s ease;
-    }
-
-    #drawer.open {
-      transform: translateX(0);
-    }
-
-    /* Visual handle */
-    #drawerHandle {
-      position: absolute;
-      top: 0;
-      right: calc(-1 * var(--peek-size));
-      width: var(--peek-size);
-      height: 100%;
-      background: var(--accent);
-      cursor: pointer;
-    }
-
-    .drawer-links {
-      margin-top: 14px;
-      border-top: 1px solid #444;
-      padding-top: 10px;
-    }
-
-    .drawer-links a {
-      display: block;
-      color: #00e676;
-      margin: 8px 0;
-      text-decoration: none;
-      font-size: 14px;
     }
   </style>
-   </head>
-
+</head>
 <body>
-
-<!-- IFRAME APLIKASI -->
-<iframe
-  class="app-frame"
-  src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
-  allowfullscreen
-  allow="geolocation">
-</iframe>
-
-<!-- INSTALL BUTTON -->
-<button id="installButton">Install Apps</button>
-
-<!-- DRAWER -->
-<div id="drawer">
-
-  <!-- HANDLE -->
-  <div id="drawerHandle" title="Buka menu"></div>
-
-  <!-- SLOT IKLAN (MASUK VIEWPORT, VALID) -->
-  <div id="drawerAd" style="min-height:120px; margin-bottom:16px;">
-<script>
-<script src="https://www.highperformanceformat.com/fcfd7f916c5cf803e601e9e840c32c0e/invoke.js"></script>
-  <script async="async" data-cfasync="false" src="https://pl28347193.effectivegatecpm.com/226ebd82466a02e9395c4a4ec585e89a/invoke.js"></script>
-<div id="container-226ebd82466a02e9395c4a4ec585e89a"></div>
-  </div>
-
-  <!-- MENU -->
-  <div class="drawer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-  </div>
-</div>
-
-<script>
-/* Drawer open / close via handle */
-const drawer = document.getElementById("drawer");
-const handle = document.getElementById("drawerHandle");
-
-handle.onclick = () => {
-  drawer.classList.toggle("open");
-};
-
-/* PWA install */
-let deferredPrompt;
-const installButton = document.getElementById("installButton");
-
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installButton.style.display = "inline-block";
-});
-
-installButton.onclick = async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt = null;
-};
-
-/* Service Worker */
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
-
+  <iframe 
+    src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
+    allowfullscreen
+    allow="geolocation">
+  </iframe>
 </body>
 </html>
