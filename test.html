@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <title>KPPI MHJS</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #000;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    iframe.main-app {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+
+    /* Container iklan */
+    #bottomAd {
+      display: none;
+      width: 100%;
+      background: #000;
+      padding: 10px 0;
+      text-align: center;
+    }
+  </style>
+
+  <!-- Script lain (tetap) -->
+  <script src="https://pl28347157.effectivegatecpm.com/16/3e/7d/163e7d57492eb2dd3aa882d88dbc7cf5.js"></script>
+</head>
+
+<body>
+
+  <!-- Konten utama -->
+  <iframe
+    class="main-app"
+    src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
+    allowfullscreen
+    allow="geolocation">
+  </iframe>
+
+  <!-- Iklan muncul hanya di paling bawah -->
+  <div id="bottomAd"></div>
+
+  <script>
+    let adLoaded = false;
+
+    window.addEventListener('scroll', function () {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // Jika scroll sudah mentok bawah
+      if (scrollTop + windowHeight >= docHeight - 5) {
+        if (!adLoaded) {
+          adLoaded = true;
+
+          const adContainer = document.getElementById('bottomAd');
+          adContainer.style.display = 'block';
+
+          // Konfigurasi iklan
+          window.atOptions = {
+            'key' : 'fe5b4fb196c4d1c5dce1b766d46221d2',
+            'format' : 'iframe',
+            'height' : 300,
+            'width' : 160,
+            'params' : {}
+          };
+
+          // Inject script iklan
+          const script = document.createElement('script');
+          script.src = 'https://judicialimpatientgenerator.com/fe5b4fb196c4d1c5dce1b766d46221d2/invoke.js';
+          script.async = true;
+          adContainer.appendChild(script);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
