@@ -28,25 +28,9 @@
       display: none;
       width: 100%;
       background: #000;
-      padding: 10px 0;
       text-align: center;
     }
   </style>
-
-  <!-- =========================
-       TEMPLATE SCRIPT IKLAN
-       (TIDAK DIEKSEKUSI)
-  ========================== -->
-  <script type="text/plain" id="adScriptTemplate">
-    (function(s){
-      s.dataset.zone='10395967',
-      s.src='https://al5sm.com/tag.min.js'
-    })([document.documentElement, document.body]
-      .filter(Boolean)
-      .pop()
-      .appendChild(document.createElement('script')));
-  </script>
-
 </head>
 
 <body>
@@ -63,45 +47,61 @@
   <div id="bottomAd"></div>
 
   <script>
-    let adLoaded = false;
-    let allowAds = false;
+    (function () {
+      let allowAds = false;
+      let adLoaded = false;
 
-    /* =========================
-       DETEKSI KONEKSI CELLULAR
-    ========================== */
-    (function detectConnection() {
+      /* =========================
+         DETEKSI JARINGAN
+         - WiFi  : IKLAN OFF
+         - Mobile: IKLAN ON
+      ========================== */
       if ('connection' in navigator) {
         const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        if (conn && conn.type === 'cellular') {
-          allowAds = true;
+
+        if (conn) {
+          // Deteksi via type
+          if (conn.type === 'cellular') {
+            allowAds = true;
+          }
+
+          // Fallback via effectiveType
+          if (conn.effectiveType && conn.effectiveType.includes('2g') ||
+              conn.effectiveType.includes('3g') ||
+              conn.effectiveType.includes('4g') ||
+              conn.effectiveType.includes('5g')) {
+            allowAds = true;
+          }
         }
       }
-    })();
 
-    /* =========================
-       SCROLL + EKSEKUSI IKLAN
-    ========================== */
-    window.addEventListener('scroll', function () {
-      if (!allowAds || adLoaded) return;
-
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-
-      if (scrollTop + windowHeight >= docHeight - 5) {
+      /* =========================
+         LOAD IKLAN JIKA MOBILE
+      ========================== */
+      function loadAd() {
+        if (!allowAds || adLoaded) return;
         adLoaded = true;
 
-        document.getElementById('bottomAd').style.display = 'block';
+        const adContainer = document.getElementById('bottomAd');
+        adContainer.style.display = 'block';
 
-        // Ambil script dari template
-        const code = document.getElementById('adScriptTemplate').textContent;
+        const adScript = document.createElement('script');
+        adScript.src = 'https://pl28347157.effectivegatecpm.com/16/3e/7d/163e7d57492eb2dd3aa882d88dbc7cf5.js';
+        adScript.async = true;
 
-        // Eksekusi script iklan
-        const s = document.createElement('script');
-        s.text = code;
-        document.body.appendChild(s);
+        adContainer.appendChild(adScript);
       }
-    });
+
+      /* =========================
+         TAMPILKAN IKLAN SETELAH LOAD
+         (TANPA SCROLL, LEBIH STABIL)
+      ========================== */
+      window.addEventListener('load', function () {
+        if (allowAds) {
+          loadAd();
+        }
+      });
+    })();
   </script>
 
 </body>
