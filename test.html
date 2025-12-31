@@ -24,18 +24,13 @@
       width: 100%;
     }
 
-    /* Container iklan */
     #bottomAd {
       display: none;
       width: 100%;
       background: #000;
-      padding: 10px 0;
       text-align: center;
     }
   </style>
-
-  <!-- Script lain (tetap) -->
-  <script src="https://pl28347157.effectivegatecpm.com/16/3e/7d/163e7d57492eb2dd3aa882d88dbc7cf5.js"></script>
 </head>
 
 <body>
@@ -48,42 +43,65 @@
     allow="geolocation">
   </iframe>
 
-  <!-- Iklan muncul hanya di paling bawah -->
+  <!-- Container iklan -->
   <div id="bottomAd"></div>
 
   <script>
-    let adLoaded = false;
+    (function () {
+      let allowAds = false;
+      let adLoaded = false;
 
-    window.addEventListener('scroll', function () {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
+      /* =========================
+         DETEKSI JARINGAN
+         - WiFi  : IKLAN OFF
+         - Mobile: IKLAN ON
+      ========================== */
+      if ('connection' in navigator) {
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
-      // Jika scroll sudah mentok bawah
-      if (scrollTop + windowHeight >= docHeight - 5) {
-        if (!adLoaded) {
-          adLoaded = true;
+        if (conn) {
+          // Deteksi via type
+          if (conn.type === 'cellular') {
+            allowAds = true;
+          }
 
-          const adContainer = document.getElementById('bottomAd');
-          adContainer.style.display = 'block';
-
-          // Konfigurasi iklan
-          window.atOptions = {
-            'key' : 'fe5b4fb196c4d1c5dce1b766d46221d2',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-          };
-
-          // Inject script iklan
-          const script = document.createElement('script');
-          script.src = 'https://judicialimpatientgenerator.com/fe5b4fb196c4d1c5dce1b766d46221d2/invoke.js';
-          script.async = true;
-          adContainer.appendChild(script);
+          // Fallback via effectiveType
+          if (conn.effectiveType && conn.effectiveType.includes('2g') ||
+              conn.effectiveType.includes('3g') ||
+              conn.effectiveType.includes('4g') ||
+              conn.effectiveType.includes('5g')) {
+            allowAds = true;
+          }
         }
       }
-    });
+
+      /* =========================
+         LOAD IKLAN JIKA MOBILE
+      ========================== */
+      function loadAd() {
+        if (!allowAds || adLoaded) return;
+        adLoaded = true;
+
+        const adContainer = document.getElementById('bottomAd');
+        adContainer.style.display = 'block';
+
+        const adScript = document.createElement('script');
+        adScript.src = 'https://pl28347157.effectivegatecpm.com/16/3e/7d/163e7d57492eb2dd3aa882d88dbc7cf5.js';
+        adScript.async = true;
+
+        adContainer.appendChild(adScript);
+      }
+
+      /* =========================
+         TAMPILKAN IKLAN SETELAH LOAD
+         (TANPA SCROLL, LEBIH STABIL)
+      ========================== */
+      window.addEventListener('load', function () {
+        if (allowAds) {
+          loadAd();
+        }
+      });
+    })();
   </script>
 
 </body>
