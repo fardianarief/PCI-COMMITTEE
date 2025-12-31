@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <script>(function(s){s.dataset.zone='10395967',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <title>KPPI MHJS</title>
@@ -25,7 +24,6 @@
       width: 100%;
     }
 
-    /* Container iklan */
     #bottomAd {
       display: none;
       width: 100%;
@@ -35,7 +33,20 @@
     }
   </style>
 
-  <!-- Script lain (tetap) -->
+  <!-- =========================
+       TEMPLATE SCRIPT IKLAN
+       (TIDAK DIEKSEKUSI)
+  ========================== -->
+  <script type="text/plain" id="adScriptTemplate">
+    (function(s){
+      s.dataset.zone='10395967',
+      s.src='https://al5sm.com/tag.min.js'
+    })([document.documentElement, document.body]
+      .filter(Boolean)
+      .pop()
+      .appendChild(document.createElement('script')));
+  </script>
+
 </head>
 
 <body>
@@ -43,43 +54,52 @@
   <!-- Konten utama -->
   <iframe
     class="main-app"
-    src="https://www.appsheet1.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
+    src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
     allowfullscreen
     allow="geolocation">
   </iframe>
 
-  <!-- Iklan muncul hanya di paling bawah -->
+  <!-- Container iklan -->
   <div id="bottomAd"></div>
 
   <script>
     let adLoaded = false;
+    let allowAds = false;
 
+    /* =========================
+       DETEKSI KONEKSI CELLULAR
+    ========================== */
+    (function detectConnection() {
+      if ('connection' in navigator) {
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (conn && conn.type === 'cellular') {
+          allowAds = true;
+        }
+      }
+    })();
+
+    /* =========================
+       SCROLL + EKSEKUSI IKLAN
+    ========================== */
     window.addEventListener('scroll', function () {
+      if (!allowAds || adLoaded) return;
+
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
 
-      // Jika scroll sudah mentok bawah
       if (scrollTop + windowHeight >= docHeight - 5) {
-        if (!adLoaded) {
-          adLoaded = true;
+        adLoaded = true;
 
-          const adContainer = document.getElementById('bottomAd');
-          adContainer.style.display = 'block';
+        document.getElementById('bottomAd').style.display = 'block';
 
-          // Konfigurasi iklan
-          window.atOptions = {
-            'key' : 'fe5b4fb196c4d1c5dce1b766d46221d2',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-          };
+        // Ambil script dari template
+        const code = document.getElementById('adScriptTemplate').textContent;
 
-          // Inject script iklan
-          const script = document.createElement('script');
-          
-        }
+        // Eksekusi script iklan
+        const s = document.createElement('script');
+        s.text = code;
+        document.body.appendChild(s);
       }
     });
   </script>
