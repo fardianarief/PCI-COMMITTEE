@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <title>KPPI MHJS</title>
-
   <style>
     html, body {
       margin: 0;
@@ -12,98 +11,22 @@
       height: 100%;
       background-color: #000;
     }
-
     body {
       display: flex;
       flex-direction: column;
     }
-
-    iframe.main-app {
+    iframe {
       flex: 1;
       border: none;
       width: 100%;
     }
-
-    #bottomAd {
-      display: none;
-      width: 100%;
-      background: #000;
-      text-align: center;
-    }
   </style>
-  <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="997696" data-siteid="383369" async data-cfasync="false"></script>
 </head>
-
 <body>
-
-  <!-- Konten utama -->
-  <iframe
-    class="main-app"
+  <iframe 
     src="https://www.appsheet.com/start/fddf162d-c048-4ddc-ac12-8994cf340f7b"
     allowfullscreen
     allow="geolocation">
   </iframe>
-
-  <!-- Container iklan -->
-  <div id="bottomAd"></div>
-
-  <script>
-    (function () {
-      let allowAds = false;
-      let adLoaded = false;
-
-      /* =========================
-         DETEKSI JARINGAN
-         - WiFi  : IKLAN OFF
-         - Mobile: IKLAN ON
-      ========================== */
-      if ('connection' in navigator) {
-        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-
-        if (conn) {
-          // Deteksi via type
-          if (conn.type === 'cellular') {
-            allowAds = true;
-          }
-
-          // Fallback via effectiveType
-          if (conn.effectiveType && conn.effectiveType.includes('2g') ||
-              conn.effectiveType.includes('3g') ||
-              conn.effectiveType.includes('4g') ||
-              conn.effectiveType.includes('5g')) {
-            allowAds = true;
-          }
-        }
-      }
-
-      /* =========================
-         LOAD IKLAN JIKA MOBILE
-      ========================== */
-      function loadAd() {
-        if (!allowAds || adLoaded) return;
-        adLoaded = true;
-
-        const adContainer = document.getElementById('bottomAd');
-        adContainer.style.display = 'block';
-
-        const adScript = document.createElement('script');
-        adScript.src = 'https://pl28347157.effectivegatecpm.com/16/3e/7d/163e7d57492eb2dd3aa882d88dbc7cf5.js';
-        adScript.async = true;
-
-        adContainer.appendChild(adScript);
-      }
-
-      /* =========================
-         TAMPILKAN IKLAN SETELAH LOAD
-         (TANPA SCROLL, LEBIH STABIL)
-      ========================== */
-      window.addEventListener('load', function () {
-        if (allowAds) {
-          loadAd();
-        }
-      });
-    })();
-  </script>
-
 </body>
 </html>
